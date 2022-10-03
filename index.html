@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator - Code with Fasih</title>
+
+  <!-- Bootstrap 5.2 -->
+  <link rel="stylesheet" href="./vendors/css/bootstrap.min.css">
+  <script defer src="./vendors/js/bootstrap.min.js"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="./vendors/css/solid.min.css" class="rel">
+  <script defer src="./vendors/js/all.min.js"></script>
+
+
+  <!-- Custom Style -->
+  <style>
+    html,
+    body {
+      height: 100%;
+      transition: color 0.7s ease-in-out, background-color 0.7s ease-in-out;
+    }
+
+    .main-container {
+      display: flex;
+      align-items: center;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      background-color: #f5f5f5;
+      transition: color 0.7s ease-in-out, background-color 0.7s ease-in-out;
+    }
+
+    .btn {
+      font-weight: 500 !important;
+      font-size: larger !important;
+      font-family: Kanit;
+      transition: color 0.7s ease-in-out, background-color 0.7s ease-in-out;
+    }
+
+    input#result,
+    input#calculation {
+      color: white;
+      text-align: end;
+      font-weight: 700;
+      font-size: larger;
+      background-color: transparent !important;
+    }
+
+    input#result {
+      font-size: xx-large !important;
+    }
+
+    .form-signin {
+      max-width: 330px;
+      padding: 15px;
+      /* transition: color 0.7s ease-in-out, background-color 0.7s ease-in-out; */
+    }
+
+    .font-awesome {
+      float: left;
+      margin-right: 6px;
+      margin-top: -45px;
+      position: relative;
+      z-index: 2;
+      color: #0dcaf0;
+    }
+
+    .toggle-theme {
+      float: right;
+      height: 0px;
+      position: sticky;
+    }
+
+    /* kanit-500 - latin */
+    @font-face {
+      font-family: 'Kanit';
+      font-style: normal;
+      font-weight: 500;
+      src: local(''),
+        url('./vendors/fonts/kanit-v12-latin-500.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('./vendors/fonts/kanit-v12-latin-500.woff') format('woff');
+      /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+
+    /* kanit-700 - latin */
+    @font-face {
+      font-family: 'Kanit';
+      font-style: normal;
+      font-weight: 700;
+      src: local(''),
+        url('./vendors/fonts/kanit-v12-latin-700.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('./vendors/fonts/kanit-v12-latin-700.woff') format('woff');
+      /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+
+    svg {
+      font-size: initial;
+    }
+
+    .dark-theme {
+      background-color: #171717 !important;
+    }
+
+    /* .dark-theme-btn {
+      color: #f5f5f5 !important;
+    } */
+
+    .light-theme {
+      background-color: #f5f5f5 !important;
+      transition: color 0.7s ease-in-out, background-color 0.7s ease-in-out;
+    }
+
+    input#result.dark-theme,
+    input#calculation.dark-theme {
+      color: #171717 !important;
+      transition: color 0.7s ease-in-out, background-color 0.7s ease-in-out;
+    }
+  </style>
+</head>
+
+<body class="text-center">
+
+  <!-- Theme Switcher -->
+  <span class="toggle-theme">
+    <input type="checkbox" class="btn-check" id="light-dark-theme">
+    <label onclick="changeTheme()" id="theme-name" class="btn btn-outline-secondary" style="margin: 12px;"
+      for="light-dark-theme"><i class='fas fa-sun' style='margin-right: 6px;'></i>Light</label>
+  </span>
+  <!-- Main Container -->
+  <div class="text-center main-container" id="container">
+
+    <main class="form-signin w-100 m-auto">
+
+      <!-- Main Application -->
+      <form>
+        <img class="mb-4" src="./img/calculator.png" alt="" width="72" height="57">
+        <h2 class="h1 mb-3 fw-bold">JS Calculator</h2>
+
+        <!-- Calculator -->
+        <div id="calculator" class="container text-center p-4" style="background-color: #171717;">
+
+          <!-- Result Input -->
+
+          <input id="result" name="result"
+            style="border: none; background-color: transparent; font-family: kanit; font-weight: 700;"
+            class="form-control mb-3" disabled>
+          <i class="fas fa-equals font-awesome"></i>
+
+          <hr style="color: gray;">
+
+          <!-- Calculation Input -->
+
+          <input id="calculation" name="calculation"
+            style="border: none; background-color: transparent; font-family: kanit; font-weight: 500;"
+            class="form-control mb-3" disabled>
+
+          <!-- row 1 -->
+
+          <div class="row">
+            <div class="col">
+              <div class="row py-1 px-2">
+                <button type="button" id="clear-all" onclick="clearAll()" style="color: white;"
+                  class="btn btn-info">CE</button>
+              </div>
+            </div>
+            <div class="col">
+              <div class="row py-1 px-2">
+                <button type="button" value="⌫" onclick="backspace();" style="color: white;" class="btn btn-info"><i
+                    class="fas fa-backspace"></i></button>
+              </div>
+            </div>
+            <div class="col">
+              <div class="row py-1 px-2">
+                <button type="button" value="%" onclick="document.getElementById('calculation').value += '%';"
+                  style="color: white;" class="btn btn-info"><i class="fas fa-percentage"></i></button>
+              </div>
+            </div>
+            <div class="col">
+              <div class="row py-1 px-2">
+                <button type="button" value="÷" onclick="document.getElementById('calculation').value += ' ÷ ';"
+                  style="color: white;" class="btn btn-info"><i class="fas fa-divide"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- row 2 -->
+
+          <div class="row">
+            <div class="col">
+              <div class="row py-1 px-2">
+                <button type="button" value="7" onclick="document.getElementById('calculation').value += '7';"
+                  class="btn btn-dark">7</button>
+              </div>
+            </div>
+            <div class="col">
+              <div class="row py-1 px-2">
+                <button type="button" value="8" onclick="document.getElementById('calculation').value += '8';"
+                  class="btn btn-dark">8</button>
+              </div>
+            </div>
+            <div class="col">
+              <div class="row py-1 px-2">
+                <button type="button" value="9" onclick="document.getElementById('calculation').value += '9';"
+                  class="btn btn-dark">9</button>
+              </div>
+            </div>
+            <div class="col">
+              <div class="row py-1 px-2">
+                <button type="button" value="x" onclick="document.getElementById('calculation').value += ' x ';"
+                  style="color: white;" class="btn btn-info"><i class="fas fa-times"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- row 3 -->
+
+          <div class="row">
+            <div class="col">
+              <div class="row py-1 px-2">
+                <button type="button" value="4" onclick="document.getElementById('calculation').value += '4';"
+                  class="btn btn-dark">4</button>
+              </div>
+            </div>
+            <div class="col">
+              <div class="row py-1 px-2">
+                <button type="button" value="5" onclick="document.getElementById('calculation').value += '5';"
+                  class="btn btn-dark">5</button>
+              </div>
+            </div>
+            <div class="col">
+              <div class="row py-1 px-2">
+                <button type="button" value="6" onclick="document.getElementById('calculation').value += '6';"
+                  class="btn btn-dark">6</button>
+              </div>
+            </div>
+            <div class="col">
+              <div class="row py-1 px-2">
+                <button type="button" value="-" onclick="document.getElementById('calculation').value += '-';"
+                  style="color: white;" class="btn btn-info"><i class="fas fa-minus"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- row 4 -->
+
+          <div class="row">
+
+            <!-- col 1 -->
+
+            <div class="col">
+              <div class="row py-1 px-2">
+                <button type="button" value="1" onclick="document.getElementById('calculation').value += '1';"
+                  class="btn btn-dark">1</button>
+              </div>
+              <div class="row py-1 px-2">
+                <button type="button" value="0" onclick="document.getElementById('calculation').value += '0';"
+                  class="btn btn-dark">0</button>
+              </div>
+            </div>
+
+            <!-- col 2 -->
+
+            <div class="col">
+              <div class="row py-1 px-2">
+                <button type="button" value="2" onclick="document.getElementById('calculation').value += '2';"
+                  class="btn btn-dark">2</button>
+              </div>
+              <div class="row py-1 px-2">
+                <button type="button" value="." onclick="document.getElementById('calculation').value += '.';"
+                  class="btn btn-dark">.</button>
+              </div>
+            </div>
+
+            <!-- col 3 -->
+
+            <div class="col">
+              <div class="row py-1 px-2">
+                <button type="button" onclick="document.getElementById('calculation').value += 3;" value="3"
+                  class="btn btn-dark">3</button>
+              </div>
+              <div class="row py-1 px-2">
+                <button type="button" value="=" onclick="calculate()" style="color: white;" class="btn btn-info"><i
+                    class="fas fa-equals"></i></button>
+              </div>
+            </div>
+
+            <!-- col 4 -->
+
+            <div class="col">
+              <div class="row py-1 px-2" style="height: 100%;">
+                <button type="button" value="+" onclick="document.getElementById('calculation').value += '+';"
+                  style="height:100%; color: white;" class="btn btn-info"><i class="fas fa-plus"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </main>
+  </div>
+  <script>
+
+    const themeLabel = document.getElementById('theme-name');
+    const themeSwitch = document.getElementById('light-dark-theme');
+    const body = document.body;
+    let btns = document.querySelectorAll('button');
+    let result = document.getElementById('result');
+    let calculation = document.getElementById('calculation');
+
+    function clearAll() {
+      calculation.value = '';
+      result.value = '';
+
+    }
+
+    function backspace() {
+      calculation.value = calculation.value.slice(0, -1);
+    }
+
+    function calculate() {
+
+      let rawCalculation = calculation.value.toString();
+      let validCalculation = rawCalculation.replace(/x/g, "*").replace(/÷/g, "/");
+
+      window.onload = result.value = eval(validCalculation);
+    }
+
+    function changeTheme() {
+      
+      if (!themeSwitch.checked) {
+        themeLabel.innerHTML = "<i class='fas fa-moon' style='margin-right: 6px;'></i>Dark";
+        body.classList.add('dark-theme', 'text-light');
+        document.getElementById('container').classList.add('dark-theme');
+        document.getElementById('calculator').classList.add('light-theme');
+        result.classList.add('dark-theme');
+        calculation.classList.add('dark-theme');
+
+        btns.forEach(function (i) {
+          i.classList.add('dark-theme-btn');
+        });
+        btns.forEach(function (i) {
+          i.classList.replace('btn-dark', 'btn-light');
+        });
+        // console.log("Checked!");
+      } else {
+        themeLabel.innerHTML = "<i class='fas fa-sun' style='margin-right: 6px;'></i>Light";
+        document.body.classList.remove('dark-theme', 'text-light');
+        document.getElementById('container').classList.remove('dark-theme');
+        document.getElementById('calculator').classList.remove('light-theme');
+        result.classList.remove('dark-theme');
+        calculation.classList.remove('dark-theme');
+
+        btns.forEach(function (i) {
+          i.classList.remove('dark-theme-btn');
+        });
+        btns.forEach(function (i) {
+          i.classList.replace('btn-light', 'btn-dark');
+        });
+        // console.log("Un-checked!");
+      }
+    }
+
+  </script>
+</body>
+
+</html>
