@@ -262,6 +262,7 @@
               </div>
             </div>
 
+
             <!-- col 2 -->
 
             <div class="col">
@@ -296,6 +297,25 @@
                   style="height:100%; color: white;" class="btn btn-info"><i class="fas fa-plus"></i></button>
               </div>
             </div>
+
+
+          </div>
+          <div class="col">
+            <div class="row py-1 px-1">
+              <div class="col">
+                <div class="row py-1 px-1">
+                  <button type="button" value="00" onclick="document.getElementById('calculation').value += '00';"
+                    class="btn btn-dark">00</button>
+                </div>
+              </div>
+              <div class="col">
+                <div class="row py-1 px-1">
+                  <button type="button" value="000" onclick="document.getElementById('calculation').value += '000';"
+                    class="btn btn-dark">000</button>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </form>
@@ -329,7 +349,7 @@
     }
 
     function changeTheme() {
-      
+
       if (!themeSwitch.checked) {
         themeLabel.innerHTML = "<i class='fas fa-moon' style='margin-right: 6px;'></i>Dark";
         body.classList.add('dark-theme', 'text-light');
@@ -365,6 +385,8 @@
 
   </script>
   <!-- TODO: Remove unnecessary libraries and optimize code size and performance -->
+  <!-- TODO: 00, 000 buttons -->
+
 </body>
 
 </html>
